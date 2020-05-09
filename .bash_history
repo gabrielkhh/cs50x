@@ -185,3 +185,11 @@ cd ../
 cd ../
 git init
 git add README.md
+git add .
+git commit -m "Uploaded pset1 files"
+git config --global user.email "gabrielkok4227@gmail.com"
+git config --global user.name "Gabriel"
+git commit -m "Uploaded pset1 files"
+git remote add origin https://github.com/ruust/cs50x.git
+git push -u origin master
+git rm --cached .bash_history
