@@ -417,3 +417,81 @@ style50 readability.c
 submit50 cs50/problems/2020/x/readability
 cd ../
 cd ../
+git add .
+git commit -m "Added pset2 and readability"
+git push
+cd pset2
+ls
+cd readability
+ls
+cd ../
+cd ../
+git pull
+cd pset2
+mkdir substitution
+cd substitution
+echo substitution.c
+vi substitution.c
+make substitution
+./ substitution
+./substitution
+make substitution
+./substitution
+./substitution 1 2 3
+./substitution ABC
+make substitution
+./substitution ABC
+make substitution
+make substitution
+./substitution ABC
+./substitution ABCdefghijklmnopqrstuvwxyz
+./substitution ABCdefghijklmnopqrstuvwxyzs
+make substitution
+make substitution
+make substitution
+make substitution
+make substitution
+make substitution
+make substitution
+make substitution
+./substitution ABC
+./substitution 
+./substitution
+make substitution
+./substitution
+debug50 ./substitution
+debug50 ./substitution
+make substitution
+./substitution
+./substitution A
+./substitution A1
+./substitution A1CDEFGhijklmnopqrstuvwxyz
+./substitution A1CDEFGhijklmnopqrstuvwxyzz
+./substitution A1CDEFGhijklmnopqrstuvwxy
+make substitution
+./substitution A1CDEFGhijklmnopqrstuvwxy
+./substitution A1CDEFGhijklmnopqrstuvwxyz
+make substitution
+./substitution A1CDEFGhijklmnopqrstuvwxyz
+./substitution ACDEFGhijklmnopqrstuvwxyz
+./substitution ACDEFGhijklmnopqrstuvwxyza
+./substitution ACDEFGhijklmnopqrstuvwxyz.
+./substitution ACDEFGhijklmnopqrstuvwxyz
+./substitution ACDEFGhijklmnopqrstuvwxyz 1
+make substitution
+./substitution ACDEFGhijklmnopqrstuvwxyz 1
+./substitution ACDEFGhijklmnopqrstuvwxyzs
+make substitution
+make substitution
+make substitution
+./substitution ACDEFGhijklmnopqrstuvwxyzs
+make substitution
+make substitution
+make substitution
+make substitution
+./substitution ACDEFGhijklmnopqrstuvwxyzs
+make substitution
+./substitution ACDEFGhijklmnopqrstuvwxyzs
+cd ../
+cd ../
+git pull
