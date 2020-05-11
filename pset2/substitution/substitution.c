@@ -12,7 +12,7 @@ int match(regex_t *pexp, char *sz);
 
 int main(int argc, string argv[])
 {
-    bool keyIsValid = false;
+    bool keyHasRepeatChar = false;
     //Init regex
     regex_t regex;
     int reti;
@@ -38,24 +38,24 @@ int main(int argc, string argv[])
         if (!reti)
         {
             //Something other than A-Z or a-z is in the key. Reject key.
-            printf("Error, key must not contain anything other than alphabetical characters.\n");
+            printf("Key must not contain anything other than alphabetical characters.\n");
             return 1;
         }
         else if (reti == REG_NOMATCH)
         {
             //Key has no illegal characters.
             //char keyInArray[] = key;
-            //Using a 2D array to check for repeated characters in the key
-            int keyRepeatStore[MAX_SIZE][2];
+            //Using an array to check for repeated characters in the key
+            int keyRepeatStore[MAX_SIZE];
             int asciiIndex = 65;
             for (int i = 0; i < MAX_SIZE; i++)
             {
-                keyRepeatStore[i][0] = asciiIndex;
-                keyRepeatStore[i][1] = 0;
-                asciiIndex++;
+                //keyRepeatStore[i][0] = asciiIndex;
+                keyRepeatStore[i] = 0;
+                //asciiIndex++;
             }
 
-            //Iterate through the key and check against the 2D Array for repeated characters in the key.
+            //Iterate through the key and check against the Array for repeated characters in the key.
             for (int i = 0; i < MAX_SIZE; i++)
             {
                 //Regardless of case, convert character to upper case for easy reference.
@@ -63,17 +63,27 @@ int main(int argc, string argv[])
                 int Letter_In_ASCII = (int)UpperCaseLetter;
                 //Because the 2D Array is populated in ASCII in alphabetical order, we can deduce that index[0] will be the reference for A(65), index[1] is B(66) so on and so forth.
                 int indexForArray = Letter_In_ASCII - 65;
-                if (keyRepeatStore[indexForArray][1])
+                if (keyRepeatStore[indexForArray] == 0)
                 {
-                    
+                    //Letter has not appeared before in the key, set value to 1 to mark it as appeared.
+                    keyRepeatStore[indexForArray] = 1;
                 }
-                //printf("%i\n", Letter_In_ASCII);
+                else
+                {
+                    //Letter has appeared before in the key, set keyHasRepeatChar value to true and throw an error to the user.
+                    keyHasRepeatChar = true;
+                    break;
+                }
             }
-            keyIsValid = true;
         }
         regfree(&regex);
-
-        if (keyIsValid)
+        if (keyHasRepeatChar)
+        {
+            //Throw an error to the user indicating that the key has repeat characters
+            printf("Key must not contain any repeated characters.\n");
+            return 1;
+        }
+        else
         {
             //TODO when key has no repeated characters
         }

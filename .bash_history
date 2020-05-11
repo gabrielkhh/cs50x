@@ -495,3 +495,28 @@ make substitution
 cd ../
 cd ../
 git pull
+git add .
+git commit -m "Added substitution"
+git push
+cd pset2/substitution
+./substitution ACDEFGhijklmnopqrstuvwxyzs
+make substitution
+make substitution
+./substitution ACDEFGhijklmnopqrstuvwxyzs
+./substitution ACDEFGhijklmnopqrstuvwxyzs
+make substitution
+./substitution ACDEFGhijklmnopqrstuvwxyzs
+make substitution
+./substitution ACDEFGhijklmnopqrstuvwxyzs
+make substitution
+./substitution ACDEFGhijklmnopqrstuvwxyzs
+make substitution
+./substitution ACDEFGhijklmnopqrstuvwxyzs
+./substitution ACDEFGhijklmnopqrstuvwxszy
+make substitution
+./substitution ACDEFGhijklmnopqrstuvwxszy
+make substitution
+./substitution QWErtyuioplkjhgfbgasdasdww
+./substitution QWErtyuioplkjhgfdsazxcvbnm
+cd ../
+cd ../
