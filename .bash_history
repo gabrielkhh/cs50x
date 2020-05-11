@@ -520,3 +520,7 @@ make substitution
 ./substitution QWErtyuioplkjhgfdsazxcvbnm
 cd ../
 cd ../
+git add .
+git commit
+git push
+git config --global core.editor "vim"
