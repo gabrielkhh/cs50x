@@ -42,14 +42,11 @@ int main(int argc, string argv[])
         else if (reti == REG_NOMATCH)
         {
             //Key has no illegal characters.
-            //char keyInArray[] = key;
             //Using an array to check for repeated characters in the key
             int keyRepeatStore[MAX_SIZE];
             for (int i = 0; i < MAX_SIZE; i++)
             {
-                //keyRepeatStore[i][0] = asciiIndex;
                 keyRepeatStore[i] = 0;
-                //asciiIndex++;
             }
 
             //Iterate through the key and check against the Array for repeated characters in the key.
