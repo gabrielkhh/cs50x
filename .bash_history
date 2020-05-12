@@ -1,35 +1,3 @@
-mkdir ~/pset1/
-cd ~/pset1/
-mkdir ~/pset1/hello
-cd /hello
-cd ./hello
-ls
-ls
-make hello
-./hello
-make hello
-./hello
-make hello
-./hello
-./hello
-check50 cs50/problems/2020/x/hello
-check50 cs50/problems/2020/x/hello
-style50 hello.c
-style50 hello.c
-git --version
-git add .
-submit50 cs50/problems/2020/x/hello
-ls
-mkdir mario
-ls
-cd pset1
-mkdir mario
-cd mario
-make mario
-./mario
-make mario
-./mario
-clear
 make mario
 ./mario
 ./mario
@@ -524,3 +492,51 @@ git add .
 git commit
 git push
 git config --global core.editor "vim"
+git add .
+git commit
+git push
+cd pset2/substitution
+make substitution
+make substitution
+cd /pset2/substitution
+cd pset2/substitution
+make substitution
+./substitution
+./substitution YTNSHKVEFXRBAUQZCLWDMIPGJO
+make substitution
+debug50 ./substitution]
+debug50 ./substitution
+debug50 ./substitution YTNSHKVEFXRBAUQZCLWDMIPGJO
+make substitution
+./substitution YTNSHKVEFXRBAUQZCLWDMIPGJO
+./substitution VCHPRZGJNTLSKFBDQWAXEUYMOI
+./substitution VCHPRZGJNTLSKFBDQWAXEUYMOI
+make substitution
+check50 cs50/problems/2020/x/substitution
+./substitution JTREKYAVOGDXPSNCUIZLFBMWHQ
+./substitution DWUSXNPQKEGCZFJBTLYROHIAVM
+./substitution DWUSXNPQKEGCZFJBTLYROHIAVM
+./substitution DWUSXNPQKEGCZFJBTLYROHIAVM
+check50 --help
+check50 cs50/problems/2020/x/substitution --log
+./substitution DWUSXNPQKEGCZFJBTLYROHIAVM
+make substitution 
+check50 cs50/problems/2020/x/substitution
+./substitution DWUSXNPQKEGCZFJBTLYROHIAVM
+./substitution DWUSXNPQKEGCZFJBTLYROHIAVM
+debug50 ./substitution
+debug50 ./substitution 123456789012345678901234567890
+debug50 ./substitution ABCDEFGHIJKLMNOPQRSTUVWXYZ
+make substitution 
+debug50 ./substitution ABCDEFGHIJKLMNOPQRSTUVWXYZ
+debug50 ./substitution ABCDEFGHIJKLMNOPQRSTUVWXYZ
+debug50 ./substitution ABCDEFGHIJKLMNOPQRSTUVWXYZ
+make substitution 
+debug50 ./substitution ABCDEFGHIJKLMNOPQRSTUVWXYZ
+./substitution ABCDEFGHIJKLMNOPQRSTUVWXYZ
+style50 substitution.c
+submit50 cs50/problems/2020/x/substitution
+make substitution 
+check50 cs50/problems/2020/x/substitution
+cd ../
+cd ../
