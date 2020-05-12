@@ -540,3 +540,6 @@ make substitution
 check50 cs50/problems/2020/x/substitution
 cd ../
 cd ../
+git add .
+git commit
+git push

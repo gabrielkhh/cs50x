@@ -82,9 +82,8 @@ int main(int argc, string argv[])
         }
         else
         {
-            //TODO when key has no repeated characters
+            //Key has no repeated characters, compute the plaintext and encipher it.
             string text = get_string("plaintext: ");
-            //Logic here
             int encipherDictArray[MAX_SIZE][2];
             bool isUpperCase = false;
             int asciiIndex = 65;
