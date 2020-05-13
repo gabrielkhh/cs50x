@@ -1,54 +1,3 @@
-make mario
-./mario
-./mario
-make mario
-make mario
-./mario
-./mario
-./mario
-make mario
-./mario
-./mario
-./mario
-make mario
-./mario
-make mario
-make mario
-./mario
-make mario
-./mario
-./mario
-make mario
-./mario
-make mario
-./mario
-./mario
-./mario
-./mario
-make mario
-./mario
-make mario
-./mario
-./mario
-./mario
-./mario
-make mario
-check50 cs50/problems/2020/x/mario/more
-style50 mario.c
-make mario
-style50 mario.c
-make mario
-style50 mario.c
-submit50 cs50/problems/2020/x/mario/more
-ls
-cd ../pset1
-cd ../pset1/
-cd .../pset1/
-cd ../
-mkdir credit/
-cd credit/
-make credit
-./credit
 make credit
 ./credit
 ./credit
@@ -546,3 +495,61 @@ git push
 git add .
 git commit -m "Code cleanups"
 git push
+git add .
+git commit -m "Minor code cleanups."
+git push
+mkdir pset3
+cd pset3
+mkdir plurality
+cd plurality/
+wget https://cdn.cs50.net/2019/fall/psets/3/plurality/plurality.c
+wget https://cdn.cs50.net/2019/fall/psets/3/plurality/plurality.c
+cd ../
+cd ../
+cd pset2
+cd readability
+debug50 ./readability
+make readability
+debug50 ./readability
+cd ../
+cd ../
+cd pset3
+cd plurality
+make plurality 
+make plurality 
+make plurality 
+./ plurality
+./plurality Alice Bob Charlie
+make plurality 
+debug 50 ./plurality Alice Bob Charlie
+debug50 ./plurality Alice Bob Charlie
+make plurality 
+./plurality Alice Bob Charlie
+make plurality 
+./plurality Alice Bob Charlie
+make plurality 
+debug50 ./plurality Alice Bob Charlie
+make plurality 
+debug50 ./plurality Alice Bob Charlie
+debug50 ./plurality Alice Bob Charlie
+make plurality 
+debug50 ./plurality Alice Bob Charlie
+make plurality 
+debug50 ./plurality Alice Bob Charlie
+make plurality 
+debug50 ./plurality Alice Bob Charlie
+./plurality Alice Bob Charlie
+./plurality Alice Bob Charlie
+./plurality Alice Bob Charlie
+make plurality 
+./plurality Alice Bob Charlie
+make plurality 
+debug50 ./plurality Alice Bob Charlie
+make plurality 
+check50 cs50/problems/2020/x/plurality
+./plurality Alice Bob Charlie
+make plurality 
+style50 plurality.c
+submit50 cs50/problems/2020/x/plurality
+cd ../
+cd ../

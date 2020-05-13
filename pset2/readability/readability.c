@@ -96,9 +96,6 @@ int match(regex_t *pexp, char *sz)
         // do not let ^ match again.
         eflags = REG_NOTBOL;
         match = 1;
-        /*printf("range %zd - %zd matches\n",
-               offset + whole_match.rm_so,
-               offset + whole_match.rm_eo);*/
 
         count++;
         // increase the starting offset
