@@ -79,7 +79,7 @@ int main(void)
 
 int match(regex_t *pexp, char *sz)
 {
-    // we just need the whole string match in this example
+    // we just need the whole string match in this example/
     regmatch_t whole_match;
 
     int count = 0;
