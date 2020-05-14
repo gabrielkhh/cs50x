@@ -1,5 +1,6 @@
 #include <cs50.h>
 #include <stdio.h>
+#include <string.h>
 
 // Max number of candidates
 #define MAX 9
@@ -100,6 +101,15 @@ int main(int argc, string argv[])
 bool vote(int rank, string name, int ranks[])
 {
     // TODO
+    //Loop through the candidates array and check if the given name matches any of the names in the array of candidates.
+    for (int i = 0; i < candidate_count; i++)
+    {
+        if (strcmp(name, candidates[i]) == 0)
+        {
+            ranks[rank] = i;
+            return true;
+        }
+    }
     return false;
 }
 
@@ -107,6 +117,20 @@ bool vote(int rank, string name, int ranks[])
 void record_preferences(int ranks[])
 {
     // TODO
+    //Loop through ranks[]
+    for (int i = 0; i < candidate_count; i++)
+    {
+        //Fill in zero because it is not possible for a candidate to have more votes against himself/herself.
+        preferences[i][i] = 0;
+        //if (i < candidate_count - 2)
+        //{
+            for (int j = i + 1; j < candidate_count; j++)
+            {
+                //add 1 point to preferences comparing this ith candidate against i + 1th candidate (Other candidates that are less preferred against ith candidate) until the last choice of this one vote.
+                preferences[ranks[i]][ranks[j]] += 1;
+            }
+        //}
+    }
     return;
 }
 
@@ -114,6 +138,39 @@ void record_preferences(int ranks[])
 void add_pairs(void)
 {
     // TODO
+    //integer for storing index counter for pairs array.
+    int totalCount = candidate_count * (candidate_count - 1) / 2;
+    int index_pairs_array = 0;
+    for (int i = 0; i < candidate_count; i++)
+    {
+        for (int j = i + 1; j < candidate_count; j++)
+        {
+            //Get the number of preferences for each candidate over the other.
+            int scenario_one = preferences[i][j];
+            int scenario_two = preferences[j][i];
+
+            //Compare the results to determine which candidate is more favourable.
+            if (scenario_one > scenario_two)
+            {
+                //ith candidate is more favourable over jth candidate.
+                if (index_pairs_array < totalCount)
+                {
+                    pairs[index_pairs_array].winner = i;
+                    pairs[index_pairs_array].loser = j;
+                }
+
+            }
+            else if (scenario_two > scenario_one)
+            {
+                //jth candidate is more favourable over ith candidate.
+                if (index_pairs_array < totalCount)
+                {
+                    pairs[index_pairs_array].winner = j;
+                    pairs[index_pairs_array].loser = i;
+                }
+            }
+        }
+    }
     return;
 }
 
@@ -136,5 +193,17 @@ void print_winner(void)
 {
     // TODO
     return;
+}
+
+int next_rank(int index)
+{
+    if (index < candidate_count)
+    {
+        return next_rank(index + 1);
+    }
+    else
+    {
+        return 10;
+    }
 }
 
