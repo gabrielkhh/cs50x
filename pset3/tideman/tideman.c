@@ -22,6 +22,7 @@ pair;
 // Array of candidates
 string candidates[MAX];
 pair pairs[MAX * (MAX - 1) / 2];
+int pairsArrayOnSteroids[MAX * (MAX - 1) / 2][3];
 
 int pair_count;
 int candidate_count;
@@ -33,6 +34,8 @@ void add_pairs(void);
 void sort_pairs(void);
 void lock_pairs(void);
 void print_winner(void);
+void mergeSort(int left, int right, int arr[left][right]);
+void merge(int l, int m, int r, int arr[l][r]);
 
 int main(int argc, string argv[])
 {
@@ -121,6 +124,7 @@ void record_preferences(int ranks[])
     for (int i = 0; i < candidate_count; i++)
     {
         //Fill in zero because it is not possible for a candidate to have more votes against himself/herself.
+        //May be redundant code.
         preferences[i][i] = 0;
         //if (i < candidate_count - 2)
         //{
@@ -139,7 +143,7 @@ void add_pairs(void)
 {
     // TODO
     //integer for storing index counter for pairs array.
-    int totalCount = candidate_count * (candidate_count - 1) / 2;
+    int totalPairs = candidate_count * (candidate_count - 1) / 2;
     int index_pairs_array = 0;
     for (int i = 0; i < candidate_count; i++)
     {
@@ -153,20 +157,22 @@ void add_pairs(void)
             if (scenario_one > scenario_two)
             {
                 //ith candidate is more favourable over jth candidate.
-                if (index_pairs_array < totalCount)
+                if (index_pairs_array < totalPairs)
                 {
                     pairs[index_pairs_array].winner = i;
                     pairs[index_pairs_array].loser = j;
+                    index_pairs_array++;
                 }
 
             }
             else if (scenario_two > scenario_one)
             {
                 //jth candidate is more favourable over ith candidate.
-                if (index_pairs_array < totalCount)
+                if (index_pairs_array < totalPairs)
                 {
                     pairs[index_pairs_array].winner = j;
                     pairs[index_pairs_array].loser = i;
+                    index_pairs_array++;
                 }
             }
         }
@@ -178,6 +184,30 @@ void add_pairs(void)
 void sort_pairs(void)
 {
     // TODO
+    int maxPairsCount = candidate_count * (candidate_count - 1) / 2;
+
+    for (int i = 0; i < maxPairsCount; i++)
+    {
+        int winID = pairs[i].winner;
+        int loseID = pairs[i].loser;
+
+        int wCount = preferences[winID][loseID];
+        int lCount = preferences[loseID][winID];
+
+        int result = wCount - lCount;
+
+        pairsArrayOnSteroids[i][0] = result;
+        pairsArrayOnSteroids[i][1] = winID;
+        pairsArrayOnSteroids[i][2] = loseID;
+    }
+    mergeSort(0, maxPairsCount, pairsArrayOnSteroids);
+
+    for(int p = 0; p < maxPairsCount; p++)
+    {
+        pairs[p].winner = pairsArrayOnSteroids[p][1];
+        pairs[p].loser = pairsArrayOnSteroids[p][2];
+    }
+
     return;
 }
 
@@ -185,6 +215,32 @@ void sort_pairs(void)
 void lock_pairs(void)
 {
     // TODO
+    bool edgeTracker[candidate_count];
+    int edgeCount = candidate_count;
+    // Clear edgeTracker array
+    for (int i = 0; i < candidate_count; i++)
+    {
+        edgeTracker[i] = false;
+    }
+    //We need to loop through each entity in the pairs array and determine if there is edge over them (arrow pointing to them [true]) or not.
+    int pairsCount = MAX * (MAX - 1) / 2;
+    for (int i = 0; i < pairsCount; i++)
+    {
+        if (edgeCount > 1)
+        {
+            if (edgeTracker[pairs[i].loser] == false)
+            {
+                edgeTracker[pairs[i].loser] = true;
+                edgeCount--;
+            }
+            locked[pairs[i].winner][pairs[i].loser] = true;
+        }
+        else
+        {
+            break;
+        }
+
+    }
     return;
 }
 
@@ -192,18 +248,123 @@ void lock_pairs(void)
 void print_winner(void)
 {
     // TODO
-    return;
-}
-
-int next_rank(int index)
-{
-    if (index < candidate_count)
+    int boolCount = 0;
+    if (candidate_count == 2)
     {
-        return next_rank(index + 1);
+        int winnerID = pairs[0].winner;
+        printf("%s\n", candidates[winnerID]);
     }
     else
     {
-        return 10;
+        //We know there are more than 2 candidates competing (0 or 1 candidate count is just dumb. lol)
+        for (int i = 0; i < candidate_count; i++)
+        {
+            boolCount = 0;
+            for (int j = 0; j < candidate_count; j++)
+            {
+                if (locked[j][i] == false)
+                {
+                    boolCount++;
+                }
+            }
+            if (boolCount == candidate_count)
+            {
+                //Winner confirmed.
+                printf("%s\n", candidates[i]);
+            }
+        }
+    }
+    return;
+}
+
+/* l is for left index and r is right index of the
+   sub-array of arr to be sorted */
+void mergeSort(int left, int right, int arr[right][3])
+{
+    if (left < right)
+    {
+        // Same as (l+r)/2, but avoids overflow for
+        // large l and h
+        int m = left+(right-left)/2;
+
+        // Sort first and second halves
+        mergeSort(left, m, arr);
+        mergeSort(m+1, right, arr);
+
+        merge(left, m, right, arr);
+    }
+}
+
+// Merges two subarrays of arr[].
+// First subarray is arr[l..m]
+// Second subarray is arr[m+1..r]
+void merge(int l, int m, int r, int arr[r][3])
+{
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 =  r - m;
+
+    /* create temp arrays */
+    int L[n1][3], R[n2][3];
+
+    /* Copy data to temp arrays L[] and R[] */
+    for (i = 0; i < n1; i++)
+    {
+        L[i][0] = arr[l + i][0];
+        L[i][1] = arr[l + i][1];
+        L[i][2] = arr[l + i][2];
+    }
+
+    for (j = 0; j < n2; j++)
+    {
+        R[j][0] = arr[m + 1+ j][0];
+        R[j][1] = arr[m + 1+ j][1];
+        R[j][2] = arr[m + 1+ j][2];
+    }
+
+    /* Merge the temp arrays back into arr[l..r]*/
+    i = 0; // Initial index of first subarray
+    j = 0; // Initial index of second subarray
+    k = l; // Initial index of merged subarray
+    while (i < n1 && j < n2)
+    {
+        if (L[i][0] >= R[j][0])
+        {
+            arr[k][0] = L[i][0];
+            arr[k][1] = L[i][1];
+            arr[k][2] = L[i][2];
+            i++;
+        }
+        else
+        {
+            arr[k][0] = R[j][0];
+            arr[k][1] = R[j][1];
+            arr[k][2] = R[j][2];
+            j++;
+        }
+        k++;
+    }
+
+    /* Copy the remaining elements of L[], if there
+       are any */
+    while (i < n1)
+    {
+        arr[k][0] = L[i][0];
+        arr[k][1] = L[i][1];
+        arr[k][2] = L[i][2];
+        i++;
+        k++;
+    }
+
+    /* Copy the remaining elements of R[], if there
+       are any */
+    while (j < n2)
+    {
+        arr[k][0] = R[j][0];
+        arr[k][1] = R[j][1];
+        arr[k][2] = R[j][2];
+        j++;
+        k++;
     }
 }
 
