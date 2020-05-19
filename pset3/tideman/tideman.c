@@ -162,6 +162,7 @@ void add_pairs(void)
                     pairs[index_pairs_array].winner = i;
                     pairs[index_pairs_array].loser = j;
                     index_pairs_array++;
+                    pair_count++;
                 }
 
             }
@@ -173,6 +174,7 @@ void add_pairs(void)
                     pairs[index_pairs_array].winner = j;
                     pairs[index_pairs_array].loser = i;
                     index_pairs_array++;
+                    pair_count++;
                 }
             }
         }
@@ -186,7 +188,7 @@ void sort_pairs(void)
     // TODO
     int maxPairsCount = candidate_count * (candidate_count - 1) / 2;
 
-    for (int i = 0; i < maxPairsCount; i++)
+    for (int i = 0; i < pair_count; i++)
     {
         int winID = pairs[i].winner;
         int loseID = pairs[i].loser;
@@ -200,9 +202,9 @@ void sort_pairs(void)
         pairsArrayOnSteroids[i][1] = winID;
         pairsArrayOnSteroids[i][2] = loseID;
     }
-    mergeSort(0, maxPairsCount, pairsArrayOnSteroids);
+    mergeSort(0, pair_count, pairsArrayOnSteroids);
 
-    for(int p = 0; p < maxPairsCount; p++)
+    for(int p = 0; p < pair_count; p++)
     {
         pairs[p].winner = pairsArrayOnSteroids[p][1];
         pairs[p].loser = pairsArrayOnSteroids[p][2];
@@ -217,14 +219,14 @@ void lock_pairs(void)
     // TODO
     bool edgeTracker[candidate_count];
     int edgeCount = candidate_count;
+    int idLastNonLoser = 0;
     // Clear edgeTracker array
     for (int i = 0; i < candidate_count; i++)
     {
         edgeTracker[i] = false;
     }
     //We need to loop through each entity in the pairs array and determine if there is edge over them (arrow pointing to them [true]) or not.
-    int pairsCount = MAX * (MAX - 1) / 2;
-    for (int i = 0; i < pairsCount; i++)
+    for (int i = 0; i < pair_count; i++)
     {
         if (edgeCount > 1)
         {
@@ -232,12 +234,28 @@ void lock_pairs(void)
             {
                 edgeTracker[pairs[i].loser] = true;
                 edgeCount--;
+                locked[pairs[i].winner][pairs[i].loser] = true;
+                if (edgeCount == 1)
+                {
+                    for (int k = 0; k < candidate_count; k++)
+                    {
+                        if (edgeTracker[k] == false)
+                        {
+                            idLastNonLoser = k;
+                            break;
+                        }
+                    }
+                }
             }
-            locked[pairs[i].winner][pairs[i].loser] = true;
+            else
+            {
+                locked[pairs[i].winner][pairs[i].loser] = true;
+            }
         }
-        else
+        else if (pairs[i].loser != idLastNonLoser)
         {
-            break;
+            //This pair will not create a cycle, safe to add it to locked[][].
+            locked[pairs[i].winner][pairs[i].loser] = true;
         }
 
     }
