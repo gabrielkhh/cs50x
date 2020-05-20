@@ -105,7 +105,6 @@ int main(int argc, string argv[])
 // Update ranks given a new vote
 bool vote(int rank, string name, int ranks[])
 {
-    // TODO
     //Loop through the candidates array and check if the given name matches any of the names in the array of candidates.
     for (int i = 0; i < candidate_count; i++)
     {
@@ -121,21 +120,17 @@ bool vote(int rank, string name, int ranks[])
 // Update preferences given one voter's ranks
 void record_preferences(int ranks[])
 {
-    // TODO
     //Loop through ranks[]
     for (int i = 0; i < candidate_count; i++)
     {
         //Fill in zero because it is not possible for a candidate to have more votes against himself/herself.
         //May be redundant code.
         preferences[i][i] = 0;
-        //if (i < candidate_count - 2)
-        //{
-            for (int j = i + 1; j < candidate_count; j++)
-            {
-                //add 1 point to preferences comparing this ith candidate against i + 1th candidate (Other candidates that are less preferred against ith candidate) until the last choice of this one vote.
-                preferences[ranks[i]][ranks[j]] += 1;
-            }
-        //}
+        for (int j = i + 1; j < candidate_count; j++)
+        {
+            //add 1 point to preferences comparing this ith candidate against i + 1th candidate (Other candidates that are less preferred against ith candidate) until the last choice of this one vote.
+            preferences[ranks[i]][ranks[j]] += 1;
+        }
     }
     return;
 }
@@ -143,7 +138,6 @@ void record_preferences(int ranks[])
 // Record pairs of candidates where one is preferred over the other
 void add_pairs(void)
 {
-    // TODO
     //integer for storing index counter for pairs array.
     int totalPairs = candidate_count * (candidate_count - 1) / 2;
     int index_pairs_array = 0;
@@ -187,7 +181,6 @@ void add_pairs(void)
 // Sort pairs in decreasing order by strength of victory
 void sort_pairs(void)
 {
-    // TODO
     int maxPairsCount = candidate_count * (candidate_count - 1) / 2;
 
     for (int i = 0; i < pair_count; i++)
@@ -206,7 +199,7 @@ void sort_pairs(void)
     }
     mergeSort(0, pair_count, pairsArrayOnSteroids);
 
-    for(int p = 0; p < pair_count; p++)
+    for (int p = 0; p < pair_count; p++)
     {
         pairs[p].winner = pairsArrayOnSteroids[p][1];
         pairs[p].loser = pairsArrayOnSteroids[p][2];
@@ -218,7 +211,6 @@ void sort_pairs(void)
 // Lock pairs into the candidate graph in order, without creating cycles
 void lock_pairs(void)
 {
-    // TODO
     for (int i = 0; i < pair_count; i++)
     {
         locked[pairs[i].winner][pairs[i].loser] = true;
@@ -273,7 +265,6 @@ void trace_path(int startingPoint, int nextPoint, int pathArr[pair_count], int i
 // Print the winner of the election
 void print_winner(void)
 {
-    // TODO
     int boolCount = 0;
     if (candidate_count == 2)
     {
@@ -311,11 +302,11 @@ void mergeSort(int left, int right, int arr[right][3])
     {
         // Same as (l+r)/2, but avoids overflow for
         // large l and h
-        int m = left+(right-left)/2;
+        int m = left + (right - left) / 2;
 
         // Sort first and second halves
         mergeSort(left, m, arr);
-        mergeSort(m+1, right, arr);
+        mergeSort(m + 1, right, arr);
 
         merge(left, m, right, arr);
     }
@@ -343,9 +334,9 @@ void merge(int l, int m, int r, int arr[r][3])
 
     for (j = 0; j < n2; j++)
     {
-        R[j][0] = arr[m + 1+ j][0];
-        R[j][1] = arr[m + 1+ j][1];
-        R[j][2] = arr[m + 1+ j][2];
+        R[j][0] = arr[m + 1 + j][0];
+        R[j][1] = arr[m + 1 + j][1];
+        R[j][2] = arr[m + 1 + j][2];
     }
 
     /* Merge the temp arrays back into arr[l..r]*/
