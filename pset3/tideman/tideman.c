@@ -22,6 +22,7 @@ pair;
 // Array of candidates
 string candidates[MAX];
 pair pairs[MAX * (MAX - 1) / 2];
+bool checkedArr[MAX * (MAX - 1) / 2];
 int pairsArrayOnSteroids[MAX * (MAX - 1) / 2][3];
 
 int pair_count;
@@ -36,6 +37,7 @@ void lock_pairs(void);
 void print_winner(void);
 void mergeSort(int left, int right, int arr[left][right]);
 void merge(int l, int m, int r, int arr[l][r]);
+void trace_path(int startingPoint, int nextPoint, int pathArr[pair_count], int index);
 
 int main(int argc, string argv[])
 {
@@ -217,7 +219,7 @@ void sort_pairs(void)
 void lock_pairs(void)
 {
     // TODO
-    bool edgeTracker[candidate_count];
+    /*bool edgeTracker[candidate_count];
     int edgeCount = candidate_count;
     int idLastNonLoser = 0;
     // Clear edgeTracker array
@@ -258,8 +260,56 @@ void lock_pairs(void)
             locked[pairs[i].winner][pairs[i].loser] = true;
         }
 
+    }*/
+    for (int i = 0; i < pair_count; i++)
+    {
+        locked[pairs[i].winner][pairs[i].loser] = true;
+    }
+
+    int pathArr[pair_count];
+
+    for (int a = 0; a < pair_count; a++)
+    {
+        checkedArr[a] = false;
+    }
+
+    for (int j = 0; j < pair_count; j++)
+    {
+        if (!checkedArr[j])
+        {
+            trace_path(pairs[j].winner, pairs[j].loser, pathArr, 0);
+        }
     }
     return;
+}
+
+void trace_path(int startingPoint, int nextPoint, int pathArr[pair_count], int index)
+{
+    if (startingPoint == nextPoint)
+    {
+        //Path with highest index == lowest piority == remove the pair from completing the cycle.
+        int highestIndexSoFar = 0;
+        for (int m = 0; m < pair_count; m++)
+        {
+            if (pathArr[m] > highestIndexSoFar)
+            {
+                highestIndexSoFar = pathArr[m];
+            }
+        }
+        locked[pairs[highestIndexSoFar].winner][pairs[highestIndexSoFar].loser] = false;
+    }
+    else
+    {
+        for (int n = 0; n < pair_count; n++)
+        {
+            if (pairs[n].winner == nextPoint)
+            {
+                checkedArr[n] = true;
+                pathArr[index] = n;
+                trace_path(startingPoint, pairs[n].loser, pathArr, index++);
+            }
+        }
+    }
 }
 
 // Print the winner of the election
