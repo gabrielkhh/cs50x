@@ -384,4 +384,3 @@ void merge(int l, int m, int r, int arr[r][3])
         k++;
     }
 }
-
