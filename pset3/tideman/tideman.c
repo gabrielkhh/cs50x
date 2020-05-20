@@ -219,48 +219,6 @@ void sort_pairs(void)
 void lock_pairs(void)
 {
     // TODO
-    /*bool edgeTracker[candidate_count];
-    int edgeCount = candidate_count;
-    int idLastNonLoser = 0;
-    // Clear edgeTracker array
-    for (int i = 0; i < candidate_count; i++)
-    {
-        edgeTracker[i] = false;
-    }
-    //We need to loop through each entity in the pairs array and determine if there is edge over them (arrow pointing to them [true]) or not.
-    for (int i = 0; i < pair_count; i++)
-    {
-        if (edgeCount > 1)
-        {
-            if (edgeTracker[pairs[i].loser] == false)
-            {
-                edgeTracker[pairs[i].loser] = true;
-                edgeCount--;
-                locked[pairs[i].winner][pairs[i].loser] = true;
-                if (edgeCount == 1)
-                {
-                    for (int k = 0; k < candidate_count; k++)
-                    {
-                        if (edgeTracker[k] == false)
-                        {
-                            idLastNonLoser = k;
-                            break;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                locked[pairs[i].winner][pairs[i].loser] = true;
-            }
-        }
-        else if (pairs[i].loser != idLastNonLoser)
-        {
-            //This pair will not create a cycle, safe to add it to locked[][].
-            locked[pairs[i].winner][pairs[i].loser] = true;
-        }
-
-    }*/
     for (int i = 0; i < pair_count; i++)
     {
         locked[pairs[i].winner][pairs[i].loser] = true;
